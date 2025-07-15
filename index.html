@@ -28,11 +28,11 @@
       const nombre = params.get('nombre') || 'Usuario';
       const plan   = params.get('plan')   || 'free';
       
-      // Validar que nombre no esté vacío
-      if (!nombre || nombre.trim() === '') {
-        console.error('ERROR: Parámetro nombre es requerido');
-        alert('Error: Falta el parámetro "nombre" en la URL');
-        return;
+      // Validar que nombre no esté vacío - temporalmente deshabilitado para debug
+      if (!nombre || nombre.trim() === '' || nombre === 'Usuario') {
+        console.warn('WARNING: Parámetro nombre faltante o por defecto, usando "Usuario"');
+        // Temporalmente no retornar para permitir debug
+        // return;
       }
 
       // Debug: mostrar en consola
@@ -63,8 +63,16 @@
       const dynamicVars = { nombre: nombre, plan: plan };
       console.log('Dynamic variables:', dynamicVars);
       
-      // Configurar variables dinámicas ANTES de insertar el widget
+      // Probar múltiples métodos para variables dinámicas
+      console.log('Intentando método 1: convo.dynamicVariables');
       convo.dynamicVariables = dynamicVars;
+      
+      console.log('Intentando método 2: setAttribute con dynamic-variables');
+      convo.setAttribute('dynamic-variables', JSON.stringify(dynamicVars));
+      
+      console.log('Intentando método 3: data attributes');
+      convo.setAttribute('data-nombre', nombre);
+      convo.setAttribute('data-plan', plan);
       
       // Configurar idioma
       convo.setAttribute('override-language', 'es');
@@ -80,6 +88,19 @@
 
       // Inserta el widget en el contenedor
       document.getElementById('agent-container').appendChild(convo);
+      
+      // Intentar configurar variables después de insertar
+      setTimeout(() => {
+        console.log('Intentando configurar variables después de insertar widget');
+        if (convo.setDynamicVariables) {
+          console.log('Método setDynamicVariables disponible');
+          convo.setDynamicVariables(dynamicVars);
+        }
+        
+        // Forzar actualización
+        convo.dynamicVariables = dynamicVars;
+        console.log('Variables configuradas post-inserción:', dynamicVars);
+      }, 1000);
     });
   </script>
 </body>
