@@ -27,6 +27,10 @@
       const params = new URLSearchParams(window.location.search);
       const nombre = params.get('nombre') || 'Usuario';
       const plan   = params.get('plan')   || 'free';
+      const edad   = params.get('edad')   || '25';
+      const ciudad = params.get('ciudad') || 'Madrid';
+      const empresa = params.get('empresa') || 'MiEmpresa';
+      const objetivo = params.get('objetivo') || 'general';
       
       // Validar que nombre no esté vacío - temporalmente deshabilitado para debug
       if (!nombre || nombre.trim() === '' || nombre === 'Usuario') {
@@ -40,6 +44,10 @@
       console.log('Search params:', window.location.search);
       console.log('Nombre:', nombre);
       console.log('Plan:', plan);
+      console.log('Edad:', edad);
+      console.log('Ciudad:', ciudad);
+      console.log('Empresa:', empresa);
+      console.log('Objetivo:', objetivo);
 
       // Mostrar en pantalla para debug
       const debugDiv = document.createElement('div');
@@ -50,6 +58,10 @@
         Search: ${window.location.search}<br>
         Nombre: "${nombre}" (${typeof nombre})<br>
         Plan: "${plan}" (${typeof plan})<br>
+        Edad: "${edad}" (${typeof edad})<br>
+        Ciudad: "${ciudad}" (${typeof ciudad})<br>
+        Empresa: "${empresa}" (${typeof empresa})<br>
+        Objetivo: "${objetivo}" (${typeof objetivo})<br>
         Host: ${window.location.host}<br>
         Pathname: ${window.location.pathname}
       `;
@@ -60,7 +72,14 @@
       convo.setAttribute('agent-id', 'agent_01jzr5st9kf4bt0t2eysbhaa4q');
       
       // Asegurar que las variables dinámicas estén disponibles
-      const dynamicVars = { nombre: nombre, plan: plan };
+      const dynamicVars = { 
+        nombre: nombre, 
+        plan: plan,
+        edad: edad,
+        ciudad: ciudad,
+        empresa: empresa,
+        objetivo: objetivo
+      };
       console.log('Dynamic variables:', dynamicVars);
       
       // Probar múltiples métodos para variables dinámicas
@@ -73,6 +92,10 @@
       console.log('Intentando método 3: data attributes');
       convo.setAttribute('data-nombre', nombre);
       convo.setAttribute('data-plan', plan);
+      convo.setAttribute('data-edad', edad);
+      convo.setAttribute('data-ciudad', ciudad);
+      convo.setAttribute('data-empresa', empresa);
+      convo.setAttribute('data-objetivo', objetivo);
       
       // Configurar idioma
       convo.setAttribute('override-language', 'es');
