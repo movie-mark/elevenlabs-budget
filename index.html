@@ -28,14 +28,17 @@
       const nombre = params.get('nombre') || 'Usuario';
       const plan   = params.get('plan')   || 'free';
 
-      // Crea el widget con variables dinámicas y overrides
+      // Crea el widget con variables dinámicas
       const convo = document.createElement('elevenlabs-convai');
       convo.setAttribute('agent-id', 'agent_01jzr5st9kf4bt0t2eysbhaa4q');
+      
+      // Asegurar que las variables dinámicas estén disponibles
       convo.setAttribute(
         'dynamic-variables',
-        JSON.stringify({ nombre, plan })
+        JSON.stringify({ nombre: nombre, plan: plan })
       );
-      convo.setAttribute('override-prompt', `Hola {{nombre}}, ¿en qué te puedo ayudar hoy?`);
+      
+      // Configurar idioma
       convo.setAttribute('override-language', 'es');
 
       // Inserta el widget en el contenedor
