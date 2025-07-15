@@ -27,6 +27,13 @@
       const params = new URLSearchParams(window.location.search);
       const nombre = params.get('nombre') || 'Usuario';
       const plan   = params.get('plan')   || 'free';
+      
+      // Validar que nombre no esté vacío
+      if (!nombre || nombre.trim() === '') {
+        console.error('ERROR: Parámetro nombre es requerido');
+        alert('Error: Falta el parámetro "nombre" en la URL');
+        return;
+      }
 
       // Debug: mostrar en consola
       console.log('URL completa:', window.location.href);
@@ -37,7 +44,15 @@
       // Mostrar en pantalla para debug
       const debugDiv = document.createElement('div');
       debugDiv.style.cssText = 'position:fixed;top:10px;left:10px;background:black;color:white;padding:10px;z-index:9999;font-size:12px;';
-      debugDiv.innerHTML = `URL: ${window.location.href}<br>Nombre: ${nombre}<br>Plan: ${plan}`;
+      debugDiv.innerHTML = `
+        <strong>DEBUG INFO:</strong><br>
+        URL: ${window.location.href}<br>
+        Search: ${window.location.search}<br>
+        Nombre: "${nombre}" (${typeof nombre})<br>
+        Plan: "${plan}" (${typeof plan})<br>
+        Host: ${window.location.host}<br>
+        Pathname: ${window.location.pathname}
+      `;
       document.body.appendChild(debugDiv);
 
       // Crea el widget con variables dinámicas
@@ -48,13 +63,20 @@
       const dynamicVars = { nombre: nombre, plan: plan };
       console.log('Dynamic variables:', dynamicVars);
       
-      convo.setAttribute(
-        'dynamic-variables',
-        JSON.stringify(dynamicVars)
-      );
+      // Configurar variables dinámicas ANTES de insertar el widget
+      convo.dynamicVariables = dynamicVars;
       
       // Configurar idioma
       convo.setAttribute('override-language', 'es');
+
+      // Agregar listeners para errores
+      convo.addEventListener('error', (error) => {
+        console.error('Widget error:', error);
+      });
+      
+      convo.addEventListener('disconnect', (event) => {
+        console.error('Widget disconnected:', event.detail);
+      });
 
       // Inserta el widget en el contenedor
       document.getElementById('agent-container').appendChild(convo);
