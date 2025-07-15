@@ -1,0 +1,14 @@
+{
+  "name": "chat-realtimevoice-elevenlabs",
+  "version": "1.0.0",
+  "description": "Agente de voz con ElevenLabs",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'No build needed for static HTML'",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["elevenlabs", "voice", "agent"],
+  "author": "",
+  "license": "MIT"
+}
