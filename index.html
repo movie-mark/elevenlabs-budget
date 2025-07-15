@@ -28,14 +28,29 @@
       const nombre = params.get('nombre') || 'Usuario';
       const plan   = params.get('plan')   || 'free';
 
+      // Debug: mostrar en consola
+      console.log('URL completa:', window.location.href);
+      console.log('Search params:', window.location.search);
+      console.log('Nombre:', nombre);
+      console.log('Plan:', plan);
+
+      // Mostrar en pantalla para debug
+      const debugDiv = document.createElement('div');
+      debugDiv.style.cssText = 'position:fixed;top:10px;left:10px;background:black;color:white;padding:10px;z-index:9999;font-size:12px;';
+      debugDiv.innerHTML = `URL: ${window.location.href}<br>Nombre: ${nombre}<br>Plan: ${plan}`;
+      document.body.appendChild(debugDiv);
+
       // Crea el widget con variables dinámicas
       const convo = document.createElement('elevenlabs-convai');
       convo.setAttribute('agent-id', 'agent_01jzr5st9kf4bt0t2eysbhaa4q');
       
       // Asegurar que las variables dinámicas estén disponibles
+      const dynamicVars = { nombre: nombre, plan: plan };
+      console.log('Dynamic variables:', dynamicVars);
+      
       convo.setAttribute(
         'dynamic-variables',
-        JSON.stringify({ nombre: nombre, plan: plan })
+        JSON.stringify(dynamicVars)
       );
       
       // Configurar idioma
