@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Agente de Voz ElevenLabs</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed"></script>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background-color: #f7f7f7;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      elevenlabs-convai {
-        width: 100%;
-        max-width: 500px;
-        height: 600px;
-      }
-    </style>
-  </head>
-  <body>
-    <elevenlabs-convai agent-id="agent_01jzr5st9kf4bt0t2eysbhaa4q"></elevenlabs-convai>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Agente de Voz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Carga el script del widget -->
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f7f7;
+    }
+  </style>
+</head>
+<body>
+  <div id="agent-container" style="width:100%;max-width:500px;height:600px;"></div>
+
+  <script>
+    window.addEventListener('load', () => {
+      // Lee parámetros de la URL
+      const params = new URLSearchParams(window.location.search);
+      const nombre = params.get('nombre') || 'Usuario';
+      const plan   = params.get('plan')   || 'free';
+
+      // Crea el widget con variables dinámicas y overrides
+      const convo = document.createElement('elevenlabs-convai');
+      convo.setAttribute('agent-id', 'agent_01jzr5st9kf4bt0t2eysbhaa4q');
+      convo.setAttribute(
+        'dynamic-variables',
+        JSON.stringify({ nombre, plan })
+      );
+      convo.setAttribute('override-prompt', `Hola {{nombre}}, ¿en qué te puedo ayudar hoy?`);
+      convo.setAttribute('override-language', 'es');
+
+      // Inserta el widget en el contenedor
+      document.getElementById('agent-container').appendChild(convo);
+    });
+  </script>
+</body>
 </html> 
