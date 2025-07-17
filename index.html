@@ -23,45 +23,42 @@
 
   <script>
     window.addEventListener('load', () => {
-      // Lee parámetros de la URL
+      // Lee parámetros de la URL (acepta minúsculas y mayúsculas)
       const params = new URLSearchParams(window.location.search);
-      const nombre = params.get('nombre') || 'Usuario';
-      const plan   = params.get('plan')   || 'free';
-      const edad   = params.get('edad')   || '25';
-      const ciudad = params.get('ciudad') || 'Madrid';
-      const empresa = params.get('empresa') || 'MiEmpresa';
-      const objetivo = params.get('objetivo') || 'general';
-      
-      // Validar que nombre no esté vacío - temporalmente deshabilitado para debug
-      if (!nombre || nombre.trim() === '' || nombre === 'Usuario') {
-        console.warn('WARNING: Parámetro nombre faltante o por defecto, usando "Usuario"');
-        // Temporalmente no retornar para permitir debug
-        // return;
-      }
+      const alias_doctor = params.get('alias_doctor') || params.get('Alias_doctor') || '';
+      const nombre_paciente = params.get('nombre_paciente') || params.get('Nombre_paciente') || '';
+      const apellido_paciente = params.get('apellido_paciente') || params.get('Apellido_paciente') || '';
+      const correo_paciente = params.get('correo_paciente') || params.get('Correo_paciente') || '';
+      const telefono_paciente = params.get('telefono_paciente') || params.get('Telefono_paciente') || '';
+      const fecha_nacimiento_paciente = params.get('fecha_nacimiento_paciente') || params.get('Fecha_nacimiento_paciente') || '';
+      const documeto_paciente = params.get('documeto_paciente') || params.get('Documeto_paciente') || '';
+      const sexo_paciente = params.get('sexo_paciente') || params.get('Sexo_paciente') || '';
 
       // Debug: mostrar en consola
-      console.log('URL completa:', window.location.href);
-      console.log('Search params:', window.location.search);
-      console.log('Nombre:', nombre);
-      console.log('Plan:', plan);
-      console.log('Edad:', edad);
-      console.log('Ciudad:', ciudad);
-      console.log('Empresa:', empresa);
-      console.log('Objetivo:', objetivo);
+      console.log('Dynamic variables:', {
+        alias_doctor,
+        nombre_paciente,
+        apellido_paciente,
+        correo_paciente,
+        telefono_paciente,
+        fecha_nacimiento_paciente,
+        documeto_paciente,
+        sexo_paciente
+      });
 
       // Mostrar en pantalla para debug
       const debugDiv = document.createElement('div');
       debugDiv.style.cssText = 'position:fixed;top:10px;left:10px;background:black;color:white;padding:10px;z-index:9999;font-size:12px;';
       debugDiv.innerHTML = `
         <strong>DEBUG INFO:</strong><br>
-        URL: ${window.location.href}<br>
-        Search: ${window.location.search}<br>
-        Nombre: "${nombre}" (${typeof nombre})<br>
-        Plan: "${plan}" (${typeof plan})<br>
-        Edad: "${edad}" (${typeof edad})<br>
-        Ciudad: "${ciudad}" (${typeof ciudad})<br>
-        Empresa: "${empresa}" (${typeof empresa})<br>
-        Objetivo: "${objetivo}" (${typeof objetivo})<br>
+        alias_doctor: "${alias_doctor}"<br>
+        nombre_paciente: "${nombre_paciente}"<br>
+        apellido_paciente: "${apellido_paciente}"<br>
+        correo_paciente: "${correo_paciente}"<br>
+        telefono_paciente: "${telefono_paciente}"<br>
+        fecha_nacimiento_paciente: "${fecha_nacimiento_paciente}"<br>
+        documeto_paciente: "${documeto_paciente}"<br>
+        sexo_paciente: "${sexo_paciente}"<br>
         Host: ${window.location.host}<br>
         Pathname: ${window.location.pathname}
       `;
@@ -70,60 +67,19 @@
       // Crea el widget con variables dinámicas
       const convo = document.createElement('elevenlabs-convai');
       convo.setAttribute('agent-id', 'agent_01jzr5st9kf4bt0t2eysbhaa4q');
-      
-      // Asegurar que las variables dinámicas estén disponibles
-      const dynamicVars = { 
-        nombre: nombre, 
-        plan: plan,
-        edad: edad,
-        ciudad: ciudad,
-        empresa: empresa,
-        objetivo: objetivo
+      const dynamicVars = {
+        alias_doctor,
+        nombre_paciente,
+        apellido_paciente,
+        correo_paciente,
+        telefono_paciente,
+        fecha_nacimiento_paciente,
+        documeto_paciente,
+        sexo_paciente
       };
-      console.log('Dynamic variables:', dynamicVars);
-      
-      // Probar múltiples métodos para variables dinámicas
-      console.log('Intentando método 1: convo.dynamicVariables');
-      convo.dynamicVariables = dynamicVars;
-      
-      console.log('Intentando método 2: setAttribute con dynamic-variables');
       convo.setAttribute('dynamic-variables', JSON.stringify(dynamicVars));
-      
-      console.log('Intentando método 3: data attributes');
-      convo.setAttribute('data-nombre', nombre);
-      convo.setAttribute('data-plan', plan);
-      convo.setAttribute('data-edad', edad);
-      convo.setAttribute('data-ciudad', ciudad);
-      convo.setAttribute('data-empresa', empresa);
-      convo.setAttribute('data-objetivo', objetivo);
-      
-      // Configurar idioma
       convo.setAttribute('override-language', 'es');
-
-      // Agregar listeners para errores
-      convo.addEventListener('error', (error) => {
-        console.error('Widget error:', error);
-      });
-      
-      convo.addEventListener('disconnect', (event) => {
-        console.error('Widget disconnected:', event.detail);
-      });
-
-      // Inserta el widget en el contenedor
       document.getElementById('agent-container').appendChild(convo);
-      
-      // Intentar configurar variables después de insertar
-      setTimeout(() => {
-        console.log('Intentando configurar variables después de insertar widget');
-        if (convo.setDynamicVariables) {
-          console.log('Método setDynamicVariables disponible');
-          convo.setDynamicVariables(dynamicVars);
-        }
-        
-        // Forzar actualización
-        convo.dynamicVariables = dynamicVars;
-        console.log('Variables configuradas post-inserción:', dynamicVars);
-      }, 1000);
     });
   </script>
 </body>
