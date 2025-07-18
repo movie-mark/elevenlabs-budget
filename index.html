@@ -14,17 +14,20 @@
       background: #f7f7f7;
     }
     .logo-fixed {
-      position: absolute;
-      top: 32px;
-      left: 0;
+      position: relative;
       width: 100%;
       text-align: center;
-      z-index: 1001;
+      margin-top: 32px;
+      margin-bottom: 32px;
+      z-index: 1;
       pointer-events: none;
     }
     .logo-img {
       max-width: 220px;
       max-height: 80px;
+    }
+    #agent-container.with-logo {
+      margin-top: 0;
     }
     #agent-container {
       width: 100%;
@@ -38,12 +41,12 @@
   </style>
 </head>
 <body>
-  <!-- Logo fijo arriba del widget -->
+  <!-- Logo arriba, fuera del área del widget -->
   <div class="logo-fixed">
     <img src="/logo.png" alt="Logo" class="logo-img" />
   </div>
 
-  <div id="agent-container"></div>
+  <div id="agent-container" class="with-logo"></div>
 
   <script>
     window.addEventListener('load', () => {
