@@ -13,21 +13,17 @@
       height: 100%;
       background: #f7f7f7;
     }
-    .logo-fixed {
-      position: relative;
+    .header-logo {
       width: 100%;
       text-align: center;
-      margin-top: 32px;
-      margin-bottom: 32px;
-      z-index: 1;
-      pointer-events: none;
+      background: #f7f7f7;
+      padding: 32px 0 16px 0;
+      position: relative;
+      z-index: 1002;
     }
     .logo-img {
       max-width: 220px;
       max-height: 80px;
-    }
-    #agent-container.with-logo {
-      margin-top: 0;
     }
     #agent-container {
       width: 100%;
@@ -41,13 +37,10 @@
   </style>
 </head>
 <body>
-  <!-- Logo arriba, fuera del área del widget -->
-  <div class="logo-fixed">
+  <div class="header-logo">
     <img src="/logo.png" alt="Logo" class="logo-img" />
   </div>
-
   <div id="agent-container" class="with-logo"></div>
-
   <script>
     window.addEventListener('load', () => {
       // Lee parámetros de la URL (acepta minúsculas y mayúsculas)
