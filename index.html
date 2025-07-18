@@ -13,13 +13,10 @@
       height: 100%;
       background: #f7f7f7;
     }
-    .header-logo {
+    .logo-simple {
       width: 100%;
       text-align: center;
-      background: #f7f7f7;
-      padding: 32px 0 16px 0;
-      position: relative;
-      z-index: 1002;
+      padding: 32px 0;
     }
     .logo-img {
       max-width: 220px;
@@ -37,10 +34,10 @@
   </style>
 </head>
 <body>
-  <div class="header-logo">
+  <div class="logo-simple">
     <img src="/logo.png" alt="Logo" class="logo-img" />
   </div>
-  <div id="agent-container" class="with-logo"></div>
+  <div id="agent-container"></div>
   <script>
     window.addEventListener('load', () => {
       // Lee parámetros de la URL (acepta minúsculas y mayúsculas)
