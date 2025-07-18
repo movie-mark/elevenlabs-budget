@@ -11,30 +11,39 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: #f7f7f7;
     }
-    .logo-container {
+    .logo-fixed {
+      position: absolute;
+      top: 32px;
+      left: 0;
       width: 100%;
-      max-width: 500px;
       text-align: center;
-      margin-bottom: 16px;
+      z-index: 1001;
+      pointer-events: none;
     }
     .logo-img {
       max-width: 220px;
       max-height: 80px;
     }
+    #agent-container {
+      width: 100%;
+      max-width: 500px;
+      height: 600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
-  <!-- Logo encima del widget -->
-  <div class="logo-container">
+  <!-- Logo fijo arriba del widget -->
+  <div class="logo-fixed">
     <img src="/logo.png" alt="Logo" class="logo-img" />
   </div>
 
-  <div id="agent-container" style="width:100%;max-width:500px;height:600px;"></div>
+  <div id="agent-container"></div>
 
   <script>
     window.addEventListener('load', () => {
