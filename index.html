@@ -42,25 +42,15 @@
     window.addEventListener('load', () => {
       // Lee parámetros de la URL (acepta minúsculas y mayúsculas)
       const params = new URLSearchParams(window.location.search);
-      const alias_doctor = params.get('alias_doctor') || params.get('Alias_doctor') || '';
       const nombre_paciente = params.get('nombre_paciente') || params.get('Nombre_paciente') || '';
       const apellido_paciente = params.get('apellido_paciente') || params.get('Apellido_paciente') || '';
-      const correo_paciente = params.get('correo_paciente') || params.get('Correo_paciente') || '';
-      const telefono_paciente = params.get('telefono_paciente') || params.get('Telefono_paciente') || '';
-      const fecha_nacimiento_paciente = params.get('fecha_nacimiento_paciente') || params.get('Fecha_nacimiento_paciente') || '';
-      const documeto_paciente = params.get('documeto_paciente') || params.get('Documeto_paciente') || '';
-      const sexo_paciente = params.get('sexo_paciente') || params.get('Sexo_paciente') || '';
+      const patient_id = params.get('patient_id') || params.get('Patient_id') || '';
 
       // Debug: mostrar en consola
       console.log('Dynamic variables:', {
-        alias_doctor,
         nombre_paciente,
         apellido_paciente,
-        correo_paciente,
-        telefono_paciente,
-        fecha_nacimiento_paciente,
-        documeto_paciente,
-        sexo_paciente
+        patient_id
       });
 
       // Mostrar en pantalla para debug
@@ -68,14 +58,9 @@
       debugDiv.style.cssText = 'position:fixed;top:10px;left:10px;background:black;color:white;padding:10px;z-index:9999;font-size:12px;';
       debugDiv.innerHTML = `
         <strong>DEBUG INFO:</strong><br>
-        alias_doctor: "${alias_doctor}"<br>
         nombre_paciente: "${nombre_paciente}"<br>
         apellido_paciente: "${apellido_paciente}"<br>
-        correo_paciente: "${correo_paciente}"<br>
-        telefono_paciente: "${telefono_paciente}"<br>
-        fecha_nacimiento_paciente: "${fecha_nacimiento_paciente}"<br>
-        documeto_paciente: "${documeto_paciente}"<br>
-        sexo_paciente: "${sexo_paciente}"<br>
+        patient_id: "${patient_id}"<br>
         Host: ${window.location.host}<br>
         Pathname: ${window.location.pathname}
       `;
@@ -85,14 +70,9 @@
       const convo = document.createElement('elevenlabs-convai');
       convo.setAttribute('agent-id', 'agent_01k0hmafctfqwvp5pd0r8j08tb');
       const dynamicVars = {
-        alias_doctor,
         nombre_paciente,
         apellido_paciente,
-        correo_paciente,
-        telefono_paciente,
-        fecha_nacimiento_paciente,
-        documeto_paciente,
-        sexo_paciente
+        patient_id
       };
       convo.setAttribute('dynamic-variables', JSON.stringify(dynamicVars));
       convo.setAttribute('override-language', 'es');
